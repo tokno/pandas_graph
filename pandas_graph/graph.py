@@ -48,7 +48,7 @@ class Graph:
         self.graph = nx.DiGraph()
 
         function_nodes = {}  # { <関数ID>: <FunctionDef>, ... }
-        dataframe_nodes = {}  # { <データフレームID>: <DataframeDef>, ... }
+        dataframe_nodes = {}  # { <データフレームID>: <DataframeNode>, ... }
 
         # ノードを生成
         for function_def in self.functions:
@@ -60,7 +60,7 @@ class Graph:
             self.graph.nodes[function_node]["shape"] = "ellipse"
 
             for output_def in function_def.outputs:
-                dataframe_node = DataframeDef(output_def)
+                dataframe_node = DataframeNode(output_def)
                 dataframe_nodes[output_def.id] = dataframe_node
 
                 self.graph.add_node(dataframe_node)
@@ -96,3 +96,5 @@ class Graph:
 
             for dataframe_id, dataframe in zip(node.output_dataframe_ids, results):
                 dataframes[dataframe_id] = dataframe
+
+        return dataframes

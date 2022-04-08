@@ -1,3 +1,5 @@
+from inspect import getmembers, isfunction
+
 from .graph import Graph
 from .function import FunctionDef, InputDataframeDef, OutputDataframeDef
 
@@ -17,10 +19,19 @@ def output(*, id, description):
 
 class FunctionRegistry:
     def __init__(self):
-        self.functions = []
+        self.functions = set()
 
     def add(self, *functions):
-        self.functions += functions
+        self.functions |= set(functions)
 
     def create_graph(self):
-        return Graph(self.functions)
+        return Graph(list(self.functions))
+
+    def collect(self, module):
+        self.add(*[
+            o
+            for (name, o) in getmembers(module)
+            if isinstance(o, FunctionDef)
+        ])
+
+        return self
