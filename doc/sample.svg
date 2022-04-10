@@ -12,15 +12,15 @@
 <ellipse fill="none" stroke="#000000" cx="281.401" cy="-90" rx="169.7344" ry="18"/>
 <text text-anchor="middle" x="281.401" y="-85.8" font-family="Times,serif" font-size="14.00" fill="#000000">データフレームaとbからcを作る関数</text>
 </g>
-<!-- c_dataframe -->
+<!-- dataframe_c -->
 <g id="node2" class="node">
-<title>c_dataframe</title>
+<title>dataframe_c</title>
 <polygon fill="none" stroke="#000000" points="324.0766,-36 238.7255,-36 238.7255,0 324.0766,0 324.0766,-36"/>
-<text text-anchor="middle" x="281.401" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">c_dataframe</text>
+<text text-anchor="middle" x="281.401" y="-13.8" font-family="Times,serif" font-size="14.00" fill="#000000">dataframe_c</text>
 </g>
-<!-- functions.c.create_c&#45;&gt;c_dataframe -->
+<!-- functions.c.create_c&#45;&gt;dataframe_c -->
 <g id="edge1" class="edge">
-<title>functions.c.create_c-&gt;c_dataframe</title>
+<title>functions.c.create_c-&gt;dataframe_c</title>
 <path fill="none" stroke="#000000" d="M281.401,-71.8314C281.401,-64.131 281.401,-54.9743 281.401,-46.4166"/>
 <polygon fill="#000000" stroke="#000000" points="284.9011,-46.4132 281.401,-36.4133 277.9011,-46.4133 284.9011,-46.4132"/>
 </g>
@@ -30,21 +30,21 @@
 <ellipse fill="none" stroke="#000000" cx="136.401" cy="-234" rx="136.3021" ry="18"/>
 <text text-anchor="middle" x="136.401" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">データフレームbを作る関数</text>
 </g>
-<!-- b_dataframe -->
+<!-- dataframe_b -->
 <g id="node4" class="node">
-<title>b_dataframe</title>
+<title>dataframe_b</title>
 <polygon fill="none" stroke="#000000" points="272.3618,-180 186.4402,-180 186.4402,-144 272.3618,-144 272.3618,-180"/>
-<text text-anchor="middle" x="229.401" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000">b_dataframe</text>
+<text text-anchor="middle" x="229.401" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000">dataframe_b</text>
 </g>
-<!-- functions.b.b_source&#45;&gt;b_dataframe -->
+<!-- functions.b.b_source&#45;&gt;dataframe_b -->
 <g id="edge2" class="edge">
-<title>functions.b.b_source-&gt;b_dataframe</title>
+<title>functions.b.b_source-&gt;dataframe_b</title>
 <path fill="none" stroke="#000000" d="M159.3898,-216.2022C171.0385,-207.1839 185.3585,-196.0975 198.006,-186.3059"/>
 <polygon fill="#000000" stroke="#000000" points="200.2661,-188.9824 206.0308,-180.0931 195.9809,-183.4473 200.2661,-188.9824"/>
 </g>
-<!-- b_dataframe&#45;&gt;functions.c.create_c -->
+<!-- dataframe_b&#45;&gt;functions.c.create_c -->
 <g id="edge3" class="edge">
-<title>b_dataframe-&gt;functions.c.create_c</title>
+<title>dataframe_b-&gt;functions.c.create_c</title>
 <path fill="none" stroke="#000000" d="M242.5228,-143.8314C248.4509,-135.6232 255.574,-125.7606 262.0944,-116.7323"/>
 <polygon fill="#000000" stroke="#000000" points="265.085,-118.5693 268.1026,-108.4133 259.4102,-114.4708 265.085,-118.5693"/>
 </g>
@@ -54,21 +54,21 @@
 <ellipse fill="none" stroke="#000000" cx="426.401" cy="-234" rx="135.7187" ry="18"/>
 <text text-anchor="middle" x="426.401" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">データフレームaを作る関数</text>
 </g>
-<!-- a_dataframe -->
+<!-- dataframe_a -->
 <g id="node6" class="node">
-<title>a_dataframe</title>
+<title>dataframe_a</title>
 <polygon fill="none" stroke="#000000" points="422.0766,-180 336.7255,-180 336.7255,-144 422.0766,-144 422.0766,-180"/>
-<text text-anchor="middle" x="379.401" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000">a_dataframe</text>
+<text text-anchor="middle" x="379.401" y="-157.8" font-family="Times,serif" font-size="14.00" fill="#000000">dataframe_a</text>
 </g>
-<!-- functions.a.a_source&#45;&gt;a_dataframe -->
+<!-- functions.a.a_source&#45;&gt;dataframe_a -->
 <g id="edge4" class="edge">
-<title>functions.a.a_source-&gt;a_dataframe</title>
+<title>functions.a.a_source-&gt;dataframe_a</title>
 <path fill="none" stroke="#000000" d="M414.5409,-215.8314C409.2381,-207.7079 402.8774,-197.9637 397.0337,-189.0118"/>
 <polygon fill="#000000" stroke="#000000" points="399.8179,-186.8739 391.4208,-180.4133 393.9562,-190.7003 399.8179,-186.8739"/>
 </g>
-<!-- a_dataframe&#45;&gt;functions.c.create_c -->
+<!-- dataframe_a&#45;&gt;functions.c.create_c -->
 <g id="edge5" class="edge">
-<title>a_dataframe-&gt;functions.c.create_c</title>
+<title>dataframe_a-&gt;functions.c.create_c</title>
 <path fill="none" stroke="#000000" d="M354.6715,-143.8314C342.3919,-134.8096 327.3916,-123.789 314.1691,-114.0745"/>
 <polygon fill="#000000" stroke="#000000" points="315.9143,-111.0136 305.7832,-107.9134 311.7697,-116.6548 315.9143,-111.0136"/>
 </g>

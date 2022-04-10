@@ -6,7 +6,7 @@ import pandas_graph as pg
     inputs=[],
     outputs=[
         pg.output(
-            id='b_dataframe',
+            id='dataframe_b',
             description=''
         )
     ]

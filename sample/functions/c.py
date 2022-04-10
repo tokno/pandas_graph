@@ -4,17 +4,17 @@ import pandas_graph as pg
 @pg.function(
     name='データフレームaとbからcを作る関数',
     inputs=[
-        pg.input(id='a_dataframe'),
-        pg.input(id='b_dataframe'),
+        pg.input(id='dataframe_a'),
+        pg.input(id='dataframe_b'),
     ],
     outputs=[
         pg.output(
-            id='c_dataframe',
+            id='dataframe_c',
             description=''
         ),
     ]
 )
-def create_c(a_dataframe, b_dataframe):
+def create_c(dataframe_a, dataframe_b):
     return [
-        pd.merge(a_dataframe, b_dataframe, left_index=True, right_index=True),
+        pd.merge(dataframe_a, dataframe_b, left_index=True, right_index=True),
     ]
