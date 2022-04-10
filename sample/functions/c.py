@@ -2,7 +2,7 @@ import pandas as pd
 import pandas_graph as pg
 
 @pg.function(
-    name='',
+    name='データフレームaとbからcを作る関数',
     inputs=[
         pg.input(id='a_dataframe'),
         pg.input(id='b_dataframe'),

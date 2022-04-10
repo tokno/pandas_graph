@@ -2,7 +2,7 @@ import pandas as pd
 import pandas_graph as pg
 
 @pg.function(
-    name='',
+    name='データフレームaを作る関数',
     inputs=[],
     outputs=[
         pg.output(
