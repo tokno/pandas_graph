@@ -24,7 +24,7 @@ import pandas_graph as pg
     inputs=[],
     outputs=[
         pg.output(
-            id='a_dataframe',
+            id='dataframe_a',
             description=''
         )
     ]
