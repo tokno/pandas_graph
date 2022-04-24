@@ -20,21 +20,21 @@ import pandas as pd
 import pandas_graph as pg
 
 @pg.function(
-    name='データフレームaを作る関数',
-    inputs=[],
+    name='データフレームaとbからcを作る関数',
+    inputs=[
+        pg.input(id='dataframe_a'),
+        pg.input(id='dataframe_b'),
+    ],
     outputs=[
         pg.output(
-            id='dataframe_a',
+            id='dataframe_c',
             description=''
-        )
+        ),
     ]
 )
-def a_source():
+def create_c(dataframe_a, dataframe_b):
     return [
-        pd.DataFrame([
-            [1, 2],
-            [3, 4]
-        ], columns=['a1', 'a2'])
+        pd.merge(dataframe_a, dataframe_b, left_index=True, right_index=True),
     ]
 ```
 
