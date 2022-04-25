@@ -1,3 +1,13 @@
+html, body, #container {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#toc-pane, #document-pane, #graph-pane {
+    border: 1px solid #000;
+}
+
 #container {
     display: grid;
     grid-template-rows: 1fr 1fr;
@@ -15,6 +25,6 @@
 }
 
 #graph-pane {
-    grid-row: 2 / 3;
-    grid-column: 1 / 3;
+    grid-row: 1 / 3;
+    grid-column: 2 / 3;
 }
