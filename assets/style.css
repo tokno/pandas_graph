@@ -6,12 +6,17 @@ html, body, #container {
 
 #toc-pane, #document-pane, #graph-pane {
     border: 1px solid #000;
+    overflow: scroll;
+}
+
+#toc-container, #document-container {
+    padding: 15px;
 }
 
 #container {
     display: grid;
-    grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 48% 1fr;
+    grid-template-columns: 48% 1fr;
 }
 
 #toc-pane {
@@ -29,6 +34,6 @@ html, body, #container {
     grid-column: 2 / 3;
 }
 
-.inactive {
+#document-pane .inactive {
     display: none;
 }

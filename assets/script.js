@@ -17,16 +17,16 @@ function onTocClick(href) {
 
 
 function renderToc(data) {
-    const tocPane = document.querySelector('#toc-pane')
+    const tocContainer = document.querySelector('#toc-container')
 
     const tocHtml = `<div>${marked.parse(data.toc)}</div>`
-    const tocNode = new DOMParser().parseFromString(tocHtml, "text/xml")
+    const tocNode = new DOMParser().parseFromString(tocHtml, "text/html")
 
-    tocNode.childNodes.forEach(function(node) {
-        tocPane.appendChild(node)
+    tocNode.querySelector('body').childNodes.forEach(function(node) {
+        tocContainer.appendChild(node)
     })
 
-    tocPane.querySelectorAll('a').forEach(function(a) {
+    tocContainer.querySelectorAll('a').forEach(function(a) {
         const href = a.getAttribute('href')
         a.setAttribute('data-page', href)
         a.removeAttribute('href')
@@ -38,34 +38,30 @@ function renderToc(data) {
 
 
 function renderPages(data) {
-    const documentPane = document.querySelector('#document-pane')
+    const documentContainer = document.querySelector('#document-container')
     
     Object.keys(data.pages).forEach(function (path) {
-        const wrapper = document.createElement('div')
         const pageHtml = `
             <div class="page inactive" data-path="${path}">
                 ${marked.parse(data.pages[path])}
             </div>
         `
 
-        const pageNode = new DOMParser().parseFromString(pageHtml, "text/xml")
-        console.log(pageNode)
-        pageNode.childNodes.forEach(function(node) {
-            wrapper.appendChild(node)
+        const pageNode = new DOMParser().parseFromString(pageHtml, "text/html")
+        pageNode.querySelector('body').childNodes.forEach(function(node) {
+            documentContainer.appendChild(node)
         })
-
-        documentPane.appendChild(wrapper)
     })
 }
 
 
 function renderGraph(data) {
-    const graphPane = document.querySelector('#graph-pane')
+    const graphContainer = document.querySelector('#graph-container')
     const viz = new Viz();
   
     viz.renderSVGElement(data.graph)
         .then(function(element) {
-            graphPane.appendChild(element)
+            graphContainer.appendChild(element)
         })
 }
 
