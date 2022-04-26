@@ -128,5 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-!assets/lib/
+!assets/lib/.keep
+sample/out
 

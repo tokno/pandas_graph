@@ -1,6 +1,5 @@
 from inspect import getmembers, isfunction
 
-from .documentor import Documentor
 from .graph import Graph
 from .function import FunctionDef, InputDataframeDef, OutputDataframeDef
 

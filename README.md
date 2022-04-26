@@ -52,5 +52,9 @@ result = graph.execute()
 ## ドキュメントの生成
 ```python
 graph = registry.create_graph()
-pg.Documentor().generate_document(graph, "path/to/markdown", "path/to/output")
+graph.generate_document("path/to/markdown", "path/to/output")
 ```
+
+以下のようなドキュメントが生成される。
+
+![doc/document_image.png](doc/document_image.png)

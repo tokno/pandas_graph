@@ -1,3 +1,7 @@
+import json
+import glob
+import os
+import shutil
 import networkx as nx
 
 
@@ -98,3 +102,38 @@ class Graph:
                 dataframes[dataframe_id] = dataframe
 
         return dataframes
+
+    def generate_document(self, markdown_source_path, output_path):
+        project_root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+        print(project_root)
+
+        data = {
+            'graph': None,
+            'toc': None,
+            'pages': {},
+        }
+
+        data['graph'] = str(self.to_agraph())
+
+        with open(f'{markdown_source_path}/toc.md', 'r', encoding='utf-8') as f:
+            data['toc'] = f.read()
+
+        for abs_path in glob.glob(f'{markdown_source_path}/*.md', recursive=True):
+            path = abs_path[len(markdown_source_path) + 1:]
+
+            with open(f'{markdown_source_path}/{path}', 'r', encoding='utf-8') as f:
+                data['pages'][path] = f.read()
+
+        os.makedirs(output_path, exist_ok=True)
+
+        if os.path.exists(f'{output_path}/doc'):
+            shutil.rmtree(f'{output_path}/doc')
+
+        shutil.copytree(f'{project_root}/assets/', f'{output_path}/doc')
+
+        with open(f'{output_path}/doc/data.jsonp', 'w', encoding='utf-8') as f:
+            f.write(f'''
+            initializeDocument(
+                {json.dumps(data)}
+            )
+            ''')
