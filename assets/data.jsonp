@@ -1,9 +1,9 @@
 initializeDocument(
     {
         "graph": "strict digraph \"\" {\n        node [label=\"\N\"];\n        \"functions.c.create_c\"  [label=データフレームaとbからcを作る関数,\n                shape=ellipse];\n        dataframe_c     [shape=box];\n        \"functions.c.create_c\" -> dataframe_c;\n        \"functions.b.b_source\"  [label=データフレームbを作る関数,\n                shape=ellipse];\n        dataframe_b     [shape=box];\n        \"functions.b.b_source\" -> dataframe_b;\n        dataframe_b -> \"functions.c.create_c\";\n        \"functions.a.a_source\"  [label=データフレームaを作る関数,\n                shape=ellipse];\n        dataframe_a     [shape=box];\n        \"functions.a.a_source\" -> dataframe_a;\n        dataframe_a -> \"functions.c.create_c\";\n}\n",
-        "toc": " * [概要](./概要.md)",
+        "toc": " * [概要](概要.md)",
         "pages": {
-            "概要": "pandas_grapuのサンプルプログラム。\n\n2つのデータフレーム(dataframe_a, dataframe_b)を元データとして、1つのデータフレーム(dataframe_c)を出力する。\n\n# 関連する要素\n * a_source\n * dataframe_a\n * b_source\n * dataframe_c\n * create_c\n * dataframe_c\n\n"
+            "概要.md": "pandas_grapuのサンプルプログラム。\n\n2つのデータフレーム(dataframe_a, dataframe_b)を元データとして、1つのデータフレーム(dataframe_c)を出力する。\n\n# 関連する要素\n * a_source\n * dataframe_a\n * b_source\n * dataframe_c\n * create_c\n * dataframe_c\n\n"
         }
     }
 )
