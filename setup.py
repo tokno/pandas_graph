@@ -26,6 +26,6 @@ setup(
         "Programming Language :: Python :: 3.9",
     ],
     package_data={
-        "": ["assets/*"],
+        "": ["assets/*", "assets/lib/*"],
     },
 )
