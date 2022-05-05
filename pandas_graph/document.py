@@ -7,8 +7,7 @@ import shutil
 class Document:
     @classmethod
     def generate_document(cls, graph, execution_result, markdown_source_path, output_path):
-        project_root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        print(project_root)
+        module_root = os.path.dirname(os.path.realpath(__file__))
 
         data = {
             'graph': None,
@@ -38,7 +37,7 @@ class Document:
         if os.path.exists(f'{output_path}/doc'):
             shutil.rmtree(f'{output_path}/doc')
 
-        shutil.copytree(f'{project_root}/assets/', f'{output_path}/doc')
+        shutil.copytree(f'{module_root}/assets/', f'{output_path}/doc')
 
         with open(f'{output_path}/doc/data.jsonp', 'w', encoding='utf-8') as f:
             f.write(f'''
