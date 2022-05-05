@@ -26,7 +26,7 @@ class Document:
         with open(f'{markdown_source_path}/toc.md', 'r', encoding='utf-8') as f:
             data['toc'] = f.read()
 
-        for abs_path in glob.glob(f'{markdown_source_path}/*.md', recursive=True):
+        for abs_path in glob.glob(f'{markdown_source_path}/**/*.md', recursive=True):
             path = abs_path[len(markdown_source_path) + 1:]
 
             with open(f'{markdown_source_path}/{path}', 'r', encoding='utf-8') as f:

@@ -28,7 +28,7 @@ html, body, #container {
 #container {
     display: grid;
     grid-template-rows: 48% 1fr;
-    grid-template-columns: 48% 1fr;
+    grid-template-columns: 500px 1fr;
 }
 
 #toc-pane {
