@@ -128,6 +128,6 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-!assets/lib/.keep
+!pandas_graph/assets/lib/
 sample/out
 
