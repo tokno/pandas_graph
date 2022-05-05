@@ -24,5 +24,8 @@ setup(
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3.9",
-    ]
+    ],
+    package_data={
+        "": ["assets/*"],
+    },
 )
