@@ -6,11 +6,23 @@ html, body, #container {
 
 #toc-pane, #document-pane, #graph-pane {
     border: 1px solid #000;
+}
+
+#toc-pane, #document-pane {
     overflow: scroll;
+}
+
+#graph-pane {
+    overflow: hidden;
 }
 
 #toc-container, #document-container {
     padding: 15px;
+}
+
+#graph-container {
+    width: 100%;
+    height: 100%;
 }
 
 #container {
@@ -36,4 +48,13 @@ html, body, #container {
 
 #document-pane .inactive {
     display: none;
+}
+
+#graph-container {
+    position: relative;
+    cursor: move;
+}
+
+#graph-container svg {
+    position: absolute;
 }

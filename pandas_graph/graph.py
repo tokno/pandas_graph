@@ -1,7 +1,4 @@
-import json
-import glob
-import os
-import shutil
+import time
 import networkx as nx
 
 
@@ -46,6 +43,23 @@ class DataframeNode(Node):
         return self.id
 
 
+class ExecutionResult:
+    def __init__(self):
+        self.function_info = {}
+        self.dataframe_info = {}
+
+    def put_function_info(self, function_id, *, elapsed_ms):
+        self.function_info[function_id] = {
+            'elapsed_ms': elapsed_ms,
+        }
+
+    def put_dataframe_info(self, dataframe_id, *, columns, row_count):
+        self.dataframe_info[dataframe_id] = {
+            'columns': columns,
+            'row_count': row_count,
+        }
+
+
 class Graph:
     def __init__(self, functions):
         self.functions = functions
@@ -83,7 +97,8 @@ class Graph:
     def to_agraph(self):
         return nx.nx_agraph.to_agraph(self.graph)
 
-    def execute(self):
+    def execute(self) -> ExecutionResult:
+        execution_result = ExecutionResult()
         dataframes = {}  # { <データフレームID>: <データフレーム>, ... }
 
         for node in list(nx.topological_sort(self.graph)):
@@ -96,44 +111,21 @@ class Graph:
                 in node.input_dataframe_ids
             ]
 
+            epoch_before_execute = int(time.time() * 1000)
             results = node.execute(*args)
+            epoch_after_execute = int(time.time() * 1000)
+
+            execution_result.put_function_info(
+                node.id,
+                elapsed_ms=epoch_after_execute - epoch_before_execute
+            )
 
             for dataframe_id, dataframe in zip(node.output_dataframe_ids, results):
                 dataframes[dataframe_id] = dataframe
+                execution_result.put_dataframe_info(
+                    dataframe_id,
+                    columns=list(dataframe.columns),
+                    row_count=len(dataframe.index)
+                )
 
-        return dataframes
-
-    def generate_document(self, markdown_source_path, output_path):
-        project_root = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-        print(project_root)
-
-        data = {
-            'graph': None,
-            'toc': None,
-            'pages': {},
-        }
-
-        data['graph'] = str(self.to_agraph())
-
-        with open(f'{markdown_source_path}/toc.md', 'r', encoding='utf-8') as f:
-            data['toc'] = f.read()
-
-        for abs_path in glob.glob(f'{markdown_source_path}/*.md', recursive=True):
-            path = abs_path[len(markdown_source_path) + 1:]
-
-            with open(f'{markdown_source_path}/{path}', 'r', encoding='utf-8') as f:
-                data['pages'][path] = f.read()
-
-        os.makedirs(output_path, exist_ok=True)
-
-        if os.path.exists(f'{output_path}/doc'):
-            shutil.rmtree(f'{output_path}/doc')
-
-        shutil.copytree(f'{project_root}/assets/', f'{output_path}/doc')
-
-        with open(f'{output_path}/doc/data.jsonp', 'w', encoding='utf-8') as f:
-            f.write(f'''
-            initializeDocument(
-                {json.dumps(data)}
-            )
-            ''')
+        return execution_result

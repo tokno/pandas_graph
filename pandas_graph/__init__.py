@@ -2,6 +2,7 @@ from inspect import getmembers, isfunction
 
 from .graph import Graph
 from .function import FunctionDef, InputDataframeDef, OutputDataframeDef
+from .document import Document
 
 
 def function(*, name, inputs=[], outputs=[]):
