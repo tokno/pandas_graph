@@ -46,6 +46,10 @@ html, body, #container {
     grid-column: 2 / 3;
 }
 
+#toc-pane a {
+    text-decoration: underline;
+}
+
 #document-pane .inactive {
     display: none;
 }
@@ -57,4 +61,8 @@ html, body, #container {
 
 #graph-container svg {
     position: absolute;
+}
+
+#graph-container .node.highlight {
+    stroke: orangered;
 }

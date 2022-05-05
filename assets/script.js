@@ -1,5 +1,20 @@
 let data = null
 
+function highlightGraphNodes(ids) {
+    // 一旦ハイライトを全部消す
+    document.querySelectorAll('#graph-container .node.highlight').forEach(function(node) {
+        node.classList.remove('highlight')
+    })
+
+
+    document.querySelectorAll('#graph-container .node').forEach(function(node) {
+        if (ids.includes(node.getAttribute('data-node-id'))) {
+            node.classList.add('highlight')
+        }
+    })
+}
+
+
 function onTocClick(href) {
     console.log(href)
 
@@ -8,6 +23,9 @@ function onTocClick(href) {
     pages.forEach(function(page) {
         if (page.getAttribute('data-path') == href) {
             page.classList.remove('inactive')
+
+            const relatedNodeIds = [...page.querySelectorAll('.related-nodes li')].map((node) => node.textContent)
+            highlightGraphNodes(relatedNodeIds)
         }
         else {
             page.classList.add('inactive')
@@ -55,6 +73,21 @@ function renderPages(data) {
 }
 
 
+function initializeGraph() {
+    // nodeへのclass付与
+    document.querySelectorAll('#graph-container svg .node').forEach(function(node) {
+        // 楕円で描画されているのは関数、長方形で描画されているのはデータフレーム
+        const isFunctionNode = node.querySelector('ellipse')
+        const className = isFunctionNode ? 'function-node' : 'dataframe-node'
+
+        node.classList.add(className)
+
+        const title = node.querySelector('title').textContent
+        node.setAttribute('data-node-id', title)
+    })
+}
+
+
 function renderGraph(data) {
     const graphContainer = document.querySelector('#graph-container')
     const viz = new Viz();
@@ -63,6 +96,8 @@ function renderGraph(data) {
         .then(function(element) {
             element.setAttribute('data-scale', 1)
             graphContainer.appendChild(element)
+
+            initializeGraph()
         })
 
     function changeGraphScale(event) {
@@ -80,6 +115,7 @@ function renderGraph(data) {
         // TODO: マウスカーソルを中心に拡大、縮小させる
     }
 
+    // 拡大縮小とマウスでの移動
     let x = null
     let y = null
         
