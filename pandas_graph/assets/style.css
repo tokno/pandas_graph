@@ -1,3 +1,7 @@
+.hidden {
+    display: none;
+}
+
 html, body, #container {
     height: 100%;
     margin: 0;
@@ -14,6 +18,7 @@ html, body, #container {
 
 #graph-pane {
     overflow: hidden;
+    position: relative;
 }
 
 #toc-container, #document-container {
@@ -46,6 +51,13 @@ html, body, #container {
     grid-column: 2 / 3;
 }
 
+
+/*
+ * ==================================================
+ * toc, document
+ * ==================================================
+ */
+
 #toc-pane a {
     text-decoration: underline;
 }
@@ -54,6 +66,12 @@ html, body, #container {
     display: none;
 }
 
+/*
+ * ==================================================
+ * graph
+ * ==================================================
+ */
+
 #graph-container {
     position: relative;
     cursor: move;
@@ -61,8 +79,37 @@ html, body, #container {
 
 #graph-container svg {
     position: absolute;
+    user-select: none;
 }
 
 #graph-container .node.highlight {
     stroke: orangered;
+}
+
+#graph-container .node {
+    cursor: pointer;
+}
+
+/*
+ * ==================================================
+ * graph overlay
+ * ==================================================
+ */
+
+ #function-info-overlay, #dataframe-info-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    background: rgba(0, 0, 0, 0.3);
+}
+
+#function-info-overlay .container, #dataframe-info-overlay .container {
+    margin: 10% auto;
+    max-width: 80%;
+    max-height: 80%;
+
+    background: #fff;
 }

@@ -81,7 +81,7 @@ function changeGraphScale(scale) {
 }
 
 
-function initializeGraph() {
+function initializeGraph(data) {
     // nodeへのclass付与
     document.querySelectorAll('#graph-container svg .node').forEach(function(node) {
         // 楕円で描画されているのは関数、長方形で描画されているのはデータフレーム
@@ -106,6 +106,31 @@ function initializeGraph() {
         containerWidth / graphWidth,
         containerHeight / graphHeight,
     ))
+
+    // nodeクリック時にオーバーレイを表示
+    document.querySelectorAll('#graph-container .function-node').forEach(node => {
+        node.addEventListener('click', event => {
+            const function_id = node.getAttribute('data-node-id')
+
+            document.querySelector('#function-info-overlay .function-id td').textContent = function_id
+            document.querySelector('#function-info-overlay .executeion-time-ms td').textContent = data['result']['function_info'][function_id]['elapsed_ms']
+            document.querySelector('#function-info-overlay .source-code pre').textContent = data['functions'][function_id]['code']
+
+            document.querySelector('#function-info-overlay').classList.remove('hidden')
+        })
+    })
+
+    document.querySelectorAll('#graph-container .dataframe-node').forEach(node => {
+        node.addEventListener('click', event => {
+            const dataframe_id = node.getAttribute('data-node-id')
+
+            document.querySelector('#dataframe-info-overlay .dataframe-id td').textContent = dataframe_id
+            document.querySelector('#dataframe-info-overlay .columns td').textContent = data['result']['dataframe_info'][dataframe_id]['columns']
+            document.querySelector('#dataframe-info-overlay .row-count td').textContent = data['result']['dataframe_info'][dataframe_id]['row_count']
+
+            document.querySelector('#dataframe-info-overlay').classList.remove('hidden')
+        })
+    })
 }
 
 
@@ -118,7 +143,7 @@ function renderGraph(data) {
             element.setAttribute('data-scale', 1)
             graphContainer.appendChild(element)
 
-            initializeGraph()
+            initializeGraph(data)
         })
 
     // 拡大縮小とマウスでの移動
@@ -181,3 +206,12 @@ function initializeDocument(data) {
     renderPages(data)
     renderGraph(data)
 }
+
+// 画面の初期化
+document.querySelector('#function-info-overlay').addEventListener('click', function() {
+    this.classList.add('hidden')
+})
+
+document.querySelector('#dataframe-info-overlay').addEventListener('click', function() {
+    this.classList.add('hidden')
+})

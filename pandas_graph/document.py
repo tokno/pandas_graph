@@ -15,6 +15,7 @@ class Document:
                 'function_info': {},
                 'dataframe_info': {},
             },
+            'functions': {},
             'toc': None,
             'pages': {},
         }
@@ -23,9 +24,17 @@ class Document:
         data['result']['function_info'] = execution_result.function_info
         data['result']['dataframe_info'] = execution_result.dataframe_info
 
+        # add function
+        for func in graph.functions:
+            data['functions'][func.id] = {
+                'code': func.code,
+            }
+
+        # add toc.md
         with open(f'{markdown_source_path}/toc.md', 'r', encoding='utf-8') as f:
             data['toc'] = f.read()
 
+        # add *.md
         for abs_path in glob.glob(f'{markdown_source_path}/**/*.md', recursive=True):
             path = abs_path[len(markdown_source_path) + 1:]
 
