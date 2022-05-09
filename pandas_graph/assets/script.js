@@ -215,3 +215,11 @@ document.querySelector('#function-info-overlay').addEventListener('click', funct
 document.querySelector('#dataframe-info-overlay').addEventListener('click', function() {
     this.classList.add('hidden')
 })
+
+document.querySelector('#function-info-overlay .container').addEventListener('click', function(event) {
+    event.stopPropagation()
+})
+
+document.querySelector('#dataframe-info-overlay .container').addEventListener('click', function(event) {
+    event.stopPropagation()
+})
