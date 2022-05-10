@@ -73,11 +73,32 @@ function renderPages(data) {
 }
 
 
-function changeGraphScale(scale) {
+function changeGraphScale(scale, pivotX=0, pivotY=0) {
+    console.log(`changeGraphScale(${scale}, ${pivotX}, ${pivotY})`)
     const graph = document.querySelector('svg')
+    const currentScale = +graph.getAttribute('data-scale')
+    // const scaleDelta = -(currentScale - scale)
+    const scaleDelta = scale / currentScale - 1
+    const { x, y } = getGraphPosition()
+
+    const graphWidthBeforeScale = graph.getBoundingClientRect().width
+    const graphHeightBeforeScale = graph.getBoundingClientRect().height
 
     graph.style.transform = `scale(${scale})`
     graph.setAttribute('data-scale', scale)
+
+    // const graphWidthAftereScale = graph.getBoundingClientRect().width
+    // const graphHeightAftereScale = graph.getBoundingClientRect().height
+
+    // console.log(`scaleDelta: ${scaleDelta}`)
+
+    const xPositionDiff = graphWidthBeforeScale * (scaleDelta) / 2
+    const yPositionDiff = graphHeightBeforeScale * (scaleDelta) / 2
+
+    setGraphPosition(
+        x + xPositionDiff,
+        y + yPositionDiff,
+    )
 }
 
 
@@ -134,6 +155,25 @@ function initializeGraph(data) {
 }
 
 
+function getGraphPosition() {
+    const graph = document.querySelector('svg')
+
+    return {
+        x: +(graph.style.left || '0px').replace('px', ''),
+        y: +(graph.style.top || '0px').replace('px', ''),
+    }
+}
+
+
+function setGraphPosition(x, y) {
+    console.log(`setGraphPosition(${x}, ${y})`)
+    const graph = document.querySelector('svg')
+
+    graph.style.left = `${x}px`
+    graph.style.top = `${y}px`
+}
+
+
 function renderGraph(data) {
     const graphContainer = document.querySelector('#graph-container')
     const viz = new Viz();
@@ -147,52 +187,67 @@ function renderGraph(data) {
         })
 
     // 拡大縮小とマウスでの移動
-    let x = null
-    let y = null
+    let prevX = null
+    let prevY = null
 
     function moveGraphPosition(event) {
-        const graph = document.querySelector('svg')
-        const originalX = +(graph.style.left || '0px').replace('px', '')
-        const originalY = +(graph.style.top || '0px').replace('px', '')
+        const { x, y } = getGraphPosition()
 
-        const nextX = originalX + (event.pageX - x)
-        const nextY = originalY + (event.pageY - y)
+        const nextX = x + (event.pageX - prevX)
+        const nextY = y + (event.pageY - prevY)
 
-        graph.style.left = `${nextX}px`
-        graph.style.top = `${nextY}px`
+        setGraphPosition(nextX, nextY)
 
-        // console.log(`x: ${originalX} -> ${nextX}`)
-        // console.log(`y: ${originalY} -> ${nextY}`)
-
-        x = event.pageX
-        y = event.pageY
+        prevX = event.pageX
+        prevY = event.pageY
     }
 
     graphContainer.addEventListener('wheel', function(event) {
         const graph = document.querySelector('svg')
-        let scale = +graph.getAttribute('data-scale')
+        const originalScale = +graph.getAttribute('data-scale')
     
-        const diff = event.deltaY * -0.002;
-        scale = scale * (1 + diff)
-    
+        const scaleDiff = event.deltaY * -0.001;
+        const nextScale = originalScale * (1 + scaleDiff)
+        console.log(`scaleDiff: ${scaleDiff}`)
+
+        const { x, y } = getGraphPosition()
+        const graphWidth = graph.getBoundingClientRect().width
+        const graphHeight = graph.getBoundingClientRect().height
+
         // TODO: 拡大率に上限と下限を設ける
+        const pivotX = (event.layerX)
+        console.log(`event.layerX: ${event.layerX}, event.layerY: ${event.layerY}`)
     
-        changeGraphScale(scale)
+        changeGraphScale(
+            nextScale,
+            0,
+            0
+        )
+        // changeGraphScale(
+        //     nextScale,
+        //     event.layerX,
+        //     event.layerY
+        // )
     
         // TODO: マウスカーソルを中心に拡大、縮小させる
+        const xPositionDiff = graphWidth * (scaleDiff) / 2
+        const yPositionDiff = graphHeight * (scaleDiff) / 2
+
+        // setGraphPosition(
+        //     x + xPositionDiff,
+        //     y + yPositionDiff,
+        // )
     })
 
     graphContainer.onmousedown = function(event) {
         console.log(event)
-        x = event.clientX
-        y = event.clientY
+        prevX = event.clientX
+        prevY = event.clientY
 
         document.addEventListener('mousemove', moveGraphPosition)
     }
     graphContainer.onmouseup = function() {
-        console.log('onmouseup')
         document.removeEventListener('mousemove', moveGraphPosition);
-        // graphContainer.onmouseup = null;
     }
 }
 
