@@ -112,4 +112,5 @@ html, body, #container {
     max-height: 80%;
 
     background: #fff;
+    overflow: scroll;
 }
