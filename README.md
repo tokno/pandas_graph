@@ -38,7 +38,7 @@ def create_c(dataframe_a, dataframe_b):
     ]
 ```
 
-## 実行
+## ローカルで実行
 ```python
 import pandas_graph as pg
 
@@ -58,3 +58,39 @@ graph.generate_document("path/to/markdown", "path/to/output")
 以下のようなドキュメントが生成される。
 
 ![doc/document_image.png](doc/document_image.png)
+
+## AWS上で実行
+グラフをAWS上で実行することができる。
+関数はLambdaで実行し、データフレームはS3に保存される。
+
+![doc/aws_runtime.drawio.svg](doc/aws_runtime.drawio.svg)
+
+実行の進捗はDynamoDBで管理する。
+下記はItemのイメージ。
+
+```json
+{
+  "Date": "2022-06-09",
+  "ExecutionID": "{uuid}",
+  "Functions": {
+    "{FunctionID}": {
+      "Inputs": [
+        "{DataFrameID}",
+        ...
+      ],
+      "State": "Finished",
+      "ExecutionTimeMs": 100,
+    },
+    ...
+  },
+  "Dataframes": {
+    "{DataFrameID}": {
+      "S3URI": "s3://some-bucket/{ExecutionID}/{DataFrameID}.csv",
+      "LineCount": 10000
+    },
+    ...
+  }
+}
+```
+
+Partition Keyは `Date` 、Sort Keyは `ExecutionID` 。
